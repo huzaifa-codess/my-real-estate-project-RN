@@ -43,7 +43,7 @@ export default function Index() {
     Rubik_600SemiBold_Italic,
     Rubik_700Bold_Italic,
     Rubik_800ExtraBold_Italic,
-    Rubik_900Black_Italic,
+    // Rubik_900Black_Italic,
   });
 
   // if (!fontsLoaded) {
