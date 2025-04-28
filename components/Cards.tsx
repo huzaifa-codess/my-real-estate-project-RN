@@ -12,6 +12,8 @@ import {
 } from "react-native";
 import React from "react";
 import icons from "@/constants/icons";
+import { Models } from "react-native-appwrite";
+import images from "@/constants/images";
 
 interface InfoBlockProps {
   title: string;
@@ -68,8 +70,13 @@ interface CardProps {
   containerStyle?: StyleProp<ViewStyle>;
   ratingWrapperStyle?: StyleProp<ViewStyle>; // ✅ New prop for badge positioning
 }
+interface props {
+  item: Models.Document;
+  onPress?: () => void;
+}
 
 export const FeaturedCard = ({
+  // item,
   onPress,
   image,
   title,
@@ -86,7 +93,7 @@ export const FeaturedCard = ({
   <TouchableOpacity onPress={onPress} style={styles.featuredCardContainer}>
     <View style={{ position: "relative", width: 190, height: 260 }}>
       <Image
-        source={image}
+        source={{ uri: item.image }}
         resizeMode="cover"
         style={[styles.backgroundImage, imageStyle]}
       />
@@ -96,6 +103,9 @@ export const FeaturedCard = ({
       />
       <View style={[styles.featuredRatingWrapper, ratingWrapperStyle]}>
         <RatingBadge />
+        {/* <View>
+          <Image source={{ uri: item.rating }} />
+        </View> */}
       </View>
       <InfoBlock
         title={title}

@@ -88,6 +88,8 @@ export default function Index() {
         data={properties}
         renderItem={({ item }) => (
           <Card
+            item={item}
+            onPress={() => handleCardPress(item.$id)}
             image={{ uri: item?.image || images.newYork }}
             title={item?.title}
             address={item?.location}
@@ -156,6 +158,8 @@ export default function Index() {
                 data={latestProperties}
                 renderItem={({ item }) => (
                   <FeaturedCard
+                    item={item}
+                    onPress={() => handleCardPress(item.$id)}
                     image={{ uri: item?.image || images.japan }}
                     title={item?.title}
                     address={item?.location}
