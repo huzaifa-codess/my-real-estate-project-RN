@@ -88,25 +88,25 @@ export default function Index() {
         data={properties}
         renderItem={({ item }) => (
           <Card
-            item={item}
-            onPress={() => handleCardPress(item.$id)}
-            image={{ uri: item?.image || images.newYork }}
-            title={item?.title}
-            address={item?.location}
-            price={`$${item?.price}`}
-            addressStyle={{ color: "black" }}
-            titleStyle={{ color: "black" }}
-            // infoBlockStyle={{ position: "relative",  }}
-            priceStyle={{ color: "#0061FF" }}
-            heartIconStyle={{ tintColor: "black" }}
-            containerStyle={{ marginRight: 10, marginBottom: 10 }}
-            imageStyle={{
-              display: "flex",
-              position: "relative",
-              bottom: 20,
-              marginBottom: 20,
-            }}
-            ratingWrapperStyle={{ height: 30, width: 50 }}
+          // item={item}
+          // onPress={() => handleCardPress(item.$id)}
+          // image={{ uri: item?.image || images.newYork }}
+          // title={item?.title}
+          // address={item?.location}
+          // price={`$${item?.price}`}
+          // addressStyle={{ color: "black" }}
+          // titleStyle={{ color: "black" }}
+          // // infoBlockStyle={{ position: "relative",  }}
+          // priceStyle={{ color: "#0061FF" }}
+          // heartIconStyle={{ tintColor: "black" }}
+          // containerStyle={{ marginRight: 10, marginBottom: 10 }}
+          // imageStyle={{
+          //   display: "flex",
+          //   position: "relative",
+          //   bottom: 20,
+          //   marginBottom: 20,
+          // }}
+          // ratingWrapperStyle={{ height: 30, width: 50 }}
           />
         )}
         keyExtractor={(item) => item?.$id || item.toString()}
@@ -158,13 +158,13 @@ export default function Index() {
                 data={latestProperties}
                 renderItem={({ item }) => (
                   <FeaturedCard
-                    item={item}
-                    onPress={() => handleCardPress(item.$id)}
-                    image={{ uri: item?.image || images.japan }}
-                    title={item?.title}
-                    address={item?.location}
-                    price={`$${item?.price}`}
-                    containerStyle={{}}
+                  // item={item}
+                  // onPress={() => handleCardPress(item.$id)}
+                  // image={{ uri: item?.image || images.japan }}
+                  // title={item?.title}
+                  // address={item?.location}
+                  // price={`$${item?.price}`}
+                  // containerStyle={{}}
                   />
                 )}
                 keyExtractor={(item) => item?.$id || item.toString()}

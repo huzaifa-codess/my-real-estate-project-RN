@@ -1,280 +1,229 @@
-import {
-  Image,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  ImageSourcePropType,
-  StyleProp,
-  ViewStyle,
-  TextStyle,
-  ImageStyle,
-} from "react-native";
-import React from "react";
 import icons from "@/constants/icons";
-import { Models } from "react-native-appwrite";
 import images from "@/constants/images";
+import {
+  Rubik_500Medium,
+  Rubik_700Bold,
+  Rubik_800ExtraBold,
+} from "@expo-google-fonts/rubik";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-interface InfoBlockProps {
-  title: string;
-  address: string;
-  price: string;
-  infoBlockStyle?: StyleProp<ViewStyle>;
-  titleStyle?: StyleProp<TextStyle>;
-  addressStyle?: StyleProp<TextStyle>;
-  priceStyle?: StyleProp<TextStyle>;
-  heartIconStyle?: StyleProp<ImageStyle>;
-}
-
-const RatingBadge = () => (
-  <View style={styles.ratingBadge}>
-    <Image source={icons.star} style={{ height: 15, width: 15 }} />
-    <Text style={styles.ratingText}>4.4</Text>
-  </View>
-);
-
-const InfoBlock = ({
-  title,
-  address,
-  price,
-  infoBlockStyle,
-  titleStyle,
-  addressStyle,
-  priceStyle,
-  heartIconStyle,
-}: InfoBlockProps) => (
-  <View style={[styles.infoBlock, infoBlockStyle]}>
-    <Text numberOfLines={1} style={[styles.titleText, titleStyle]}>
-      {title}
-    </Text>
-    <Text style={[styles.addressText, addressStyle]}>{address}</Text>
-    <View style={styles.priceContainer}>
-      <Text style={[styles.priceText, priceStyle]}>{price}</Text>
-      <Image source={icons.heart} style={[styles.heartIcon, heartIconStyle]} />
-    </View>
-  </View>
-);
-
-interface CardProps {
-  onPress?: () => void;
-  image: ImageSourcePropType;
-  title: string;
-  address: string;
-  price: string;
-  imageStyle?: StyleProp<ImageStyle>;
-  infoBlockStyle?: StyleProp<ViewStyle>;
-  titleStyle?: StyleProp<TextStyle>;
-  addressStyle?: StyleProp<TextStyle>;
-  priceStyle?: StyleProp<TextStyle>;
-  heartIconStyle?: StyleProp<ImageStyle>;
-  containerStyle?: StyleProp<ViewStyle>;
-  ratingWrapperStyle?: StyleProp<ViewStyle>; // ✅ New prop for badge positioning
-}
-interface props {
-  item: Models.Document;
+interface Props {
   onPress?: () => void;
 }
 
-export const FeaturedCard = ({
-  // item,
-  onPress,
-  image,
-  title,
-  address,
-  price,
-  imageStyle,
-  infoBlockStyle,
-  titleStyle,
-  addressStyle,
-  priceStyle,
-  heartIconStyle,
-  ratingWrapperStyle,
-}: CardProps) => (
-  <TouchableOpacity onPress={onPress} style={styles.featuredCardContainer}>
-    <View style={{ position: "relative", width: 190, height: 260 }}>
-      <Image
-        source={{ uri: item.image }}
-        resizeMode="cover"
-        style={[styles.backgroundImage, imageStyle]}
-      />
-      <Image
-        source={require("@/assets/images/card-gradient.png")}
-        style={styles.overlayImage}
-      />
-      <View style={[styles.featuredRatingWrapper, ratingWrapperStyle]}>
-        <RatingBadge />
-        {/* <View>
-          <Image source={{ uri: item.rating }} />
-        </View> */}
-      </View>
-      <InfoBlock
-        title={title}
-        address={address}
-        price={price}
-        infoBlockStyle={[
-          { position: "absolute", bottom: 16, left: 12 },
-          infoBlockStyle,
-        ]}
-        titleStyle={titleStyle}
-        addressStyle={addressStyle}
-        priceStyle={priceStyle}
-        heartIconStyle={heartIconStyle}
-      />
-    </View>
-  </TouchableOpacity>
-);
-
-export const Card = ({
-  onPress,
-  image,
-  title,
-  address,
-  price,
-  imageStyle,
-  infoBlockStyle,
-  titleStyle,
-  addressStyle,
-  priceStyle,
-  heartIconStyle,
-  containerStyle,
-  ratingWrapperStyle,
-}: CardProps) => (
-  <TouchableOpacity
-    onPress={onPress}
-    style={[styles.shadowBox, containerStyle]}
-  >
-    <View
-      style={{ position: "relative", overflow: "hidden", borderRadius: 16 }}
+export const FeaturedCard = ({ onPress }: Props) => {
+  return (
+    <TouchableOpacity
+      onPress={onPress}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "flex-start",
+        width: 240,
+        height: 320,
+        position: "relative",
+      }}
     >
-      <Image source={image} style={[styles.cardImage, imageStyle]} />
-      <View style={[styles.cardRatingWrapper, ratingWrapperStyle]}>
-        <RatingBadge />
-      </View>
-      <InfoBlock
-        title={title}
-        address={address}
-        price={price}
-        infoBlockStyle={[
-          { position: "relative", bottom: 12, left: 10 },
-          infoBlockStyle,
-        ]}
-        titleStyle={titleStyle}
-        addressStyle={addressStyle}
-        priceStyle={priceStyle}
-        heartIconStyle={heartIconStyle}
+      <Image
+        source={images.japan}
+        style={{ width: "100%", height: "100%", borderRadius: 16 }}
       />
-    </View>
-  </TouchableOpacity>
-);
+      <Image
+        source={images.cardGradient}
+        style={{
+          width: "100%",
+          height: "100%",
+          borderRadius: 16,
+          position: "absolute",
+          bottom: 0,
+        }}
+      />
 
-const styles = StyleSheet.create({
-  featuredCardContainer: {
-    display: "flex",
-    flexDirection: "column",
-  },
-  backgroundImage: {
-    position: "absolute",
-    height: 260,
-    width: 190,
-    borderRadius: 16,
-  },
-  overlayImage: {
-    height: 260,
-    width: 190,
-    borderRadius: 16,
-  },
-  featuredRatingWrapper: {
-    position: "absolute",
-    top: 20,
-    right: 20,
-    zIndex: 1,
-  },
-  shadowBox: {
-    flex: 1,
-    width: "100%",
-    marginTop: 12,
-    paddingHorizontal: 10,
-    paddingVertical: 60,
-    borderRadius: 10,
-    backgroundColor: "#FFFFFF",
-    shadowColor: "#000000",
-    shadowOffset: {
-      width: 0,
-      height: 10,
-    },
-    shadowRadius: 6,
-    elevation: 6,
-    position: "relative",
-  },
-  cardImage: {
-    width: "100%",
-    height: 180,
-    borderRadius: 16,
-    bottom: 40,
-  },
-  // cardRatingWrapper: {
-  //   position: "absolute",
-  //   top: 10,
-  //   right: 10,
-  //   zIndex: 1,
-  // },
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          backgroundColor: "rgba(255,255,255,0.9)",
+          paddingHorizontal: 12,
+          paddingVertical: 6,
+          borderRadius: 9999,
+          position: "absolute",
+          top: 20,
+          right: 20,
+        }}
+      >
+        <Image source={icons.star} style={{ height: 20, width: 20 }} />
+        <Text
+          style={{ fontSize: 12, fontFamily: "Rubik_700Bold", marginLeft: 4 }}
+        >
+          4.4
+        </Text>
+      </View>
 
-  cardRatingWrapper: {
-    position: "absolute",
-    top: 10,
-    right: 10,
-    zIndex: 2,
-    backgroundColor: "white",
-    borderRadius: 16,
-    paddingHorizontal: 6,
-    paddingVertical: 4,
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  ratingBadge: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "white",
-    paddingVertical: 4,
-    paddingHorizontal: 6,
-    borderRadius: 16,
-  },
-  ratingText: {
-    fontFamily: "Rubik_700Bold",
-    fontSize: 11,
-    color: "#0061FF",
-  },
-  infoBlock: {
-    paddingHorizontal: 10,
-    paddingVertical: 8,
-    width: "100%",
-    zIndex: 1,
-  },
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-start",
+          position: "absolute",
+          bottom: 20,
+          left: 20,
+          right: 20,
+        }}
+      >
+        <Text
+          style={{
+            fontSize: 20,
+            fontFamily: "Rubik_800ExtraBold",
+            color: "#ffffff",
+          }}
+          numberOfLines={1}
+        >
+          Modern Apartment
+        </Text>
+        <Text
+          style={{
+            fontSize: 16,
+            fontFamily: "Rubik_500Medium",
+            color: "#ffffff",
+          }}
+        >
+          22 W 15th St, New York
+        </Text>
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+            width: "100%",
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 20,
+              fontFamily: "Rubik_800ExtraBold",
+              color: "#ffffff",
+            }}
+          >
+            $2,500
+          </Text>
+          <Image source={icons.heart} style={{ width: 20, height: 20 }} />
+        </View>
+      </View>
+    </TouchableOpacity>
+  );
+};
 
-  titleText: {
-    fontSize: 16,
-    fontFamily: "Rubik_800ExtraBold",
-    color: "white",
-  },
-  addressText: {
-    fontSize: 10,
-    fontFamily: "Rubik_300Light",
-    color: "white",
-    marginTop: 3,
-  },
-  priceContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginTop: 8,
-  },
-  priceText: {
-    fontFamily: "Rubik_800ExtraBold",
-    fontSize: 16,
-    color: "white",
-  },
-  heartIcon: {
-    height: 22,
-    width: 22,
-    marginLeft: 60,
-  },
-});
+export const Card = ({ onPress }: Props) => {
+  return (
+    <TouchableOpacity
+      onPress={onPress}
+      style={{
+        flex: 1,
+        width: "100%",
+        marginTop: 16,
+        paddingHorizontal: 12,
+        paddingVertical: 16,
+        borderRadius: 20,
+        // color: "#ffffff",
+        // shadowColor: "#000",
+        // shadowOffset: { width: 0, height: 10 },
+        // shadowOpacity: 0.7,
+        // shadowRadius: 10,
+        // elevation: 10,
+      }}
+    >
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          position: "absolute",
+          paddingHorizontal: 8,
+          top: 20,
+          right: 20,
+          backgroundColor: "rgba(255,255,255,0.9)",
+          padding: 4,
+          borderRadius: 9999,
+          zIndex: 50,
+        }}
+      >
+        <Image source={icons.star} style={{ height: 16, width: 16 }} />
+        <Text
+          style={{ fontSize: 12, fontFamily: "Rubik_700Bold", marginLeft: 4 }}
+        >
+          4.4
+        </Text>
+      </View>
+
+      <Image
+        source={images.newYork}
+        style={{ width: "100%", height: 160, borderRadius: 8 }}
+      />
+
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          marginTop: 8,
+          // alignItems: "flex-start",
+          // position: "absolute",
+          // bottom: 20,
+          // left: 20,
+          // right: 20,
+        }}
+      >
+        <Text
+          style={{
+            fontSize: 16,
+            fontFamily: "Rubik_700Bold",
+            color: "#191d31",
+          }}
+        >
+          Cozy Studio
+        </Text>
+        <Text
+          style={{
+            fontSize: 12,
+            fontFamily: "Rubik_500Medium",
+            color: "#666876",
+          }}
+        >
+          22 W 15th St, New York
+        </Text>
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+            marginTop: 8,
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 16,
+              fontFamily: "Rubik_700Bold",
+              color: "#0061FF",
+            }}
+          >
+            $2,500
+          </Text>
+          <Image
+            source={icons.heart}
+            style={{
+              width: 20,
+              height: 20,
+              marginRight: 8,
+              tintColor: "#191d31",
+            }}
+          />
+        </View>
+      </View>
+    </TouchableOpacity>
+  );
+};
+
+const styles = StyleSheet.create({});
