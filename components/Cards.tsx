@@ -6,110 +6,32 @@ import {
   Rubik_800ExtraBold,
 } from "@expo-google-fonts/rubik";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Models } from "react-native-appwrite";
 
 interface Props {
+  item: Models.Document;
   onPress?: () => void;
 }
 
-export const FeaturedCard = ({ onPress }: Props) => {
+export const FeaturedCard = ({ item, onPress }: Props) => {
   return (
-    <TouchableOpacity
-      onPress={onPress}
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "flex-start",
-        width: 240,
-        height: 320,
-        position: "relative",
-      }}
-    >
-      <Image
-        source={images.japan}
-        style={{ width: "100%", height: "100%", borderRadius: 16 }}
-      />
-      <Image
-        source={images.cardGradient}
-        style={{
-          width: "100%",
-          height: "100%",
-          borderRadius: 16,
-          position: "absolute",
-          bottom: 0,
-        }}
-      />
+    <TouchableOpacity onPress={onPress} style={styles.featuredCard}>
+      <Image source={{ uri: item.image }} style={styles.featuredImage} />
+      <Image source={images.cardGradient} style={styles.gradientOverlay} />
 
-      <View
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          backgroundColor: "rgba(255,255,255,0.9)",
-          paddingHorizontal: 12,
-          paddingVertical: 6,
-          borderRadius: 9999,
-          position: "absolute",
-          top: 20,
-          right: 20,
-        }}
-      >
-        <Image source={icons.star} style={{ height: 20, width: 20 }} />
-        <Text
-          style={{ fontSize: 12, fontFamily: "Rubik_700Bold", marginLeft: 4 }}
-        >
-          4.4
-        </Text>
+      <View style={styles.ratingBadge}>
+        <Image source={icons.star} style={styles.starIcon} />
+        <Text style={styles.ratingText}>4.4</Text>
       </View>
 
-      <View
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "flex-start",
-          position: "absolute",
-          bottom: 20,
-          left: 20,
-          right: 20,
-        }}
-      >
-        <Text
-          style={{
-            fontSize: 20,
-            fontFamily: "Rubik_800ExtraBold",
-            color: "#ffffff",
-          }}
-          numberOfLines={1}
-        >
+      <View style={styles.featuredContent}>
+        <Text style={styles.featuredTitle} numberOfLines={1}>
           Modern Apartment
         </Text>
-        <Text
-          style={{
-            fontSize: 16,
-            fontFamily: "Rubik_500Medium",
-            color: "#ffffff",
-          }}
-        >
-          22 W 15th St, New York
-        </Text>
-        <View
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            width: "100%",
-          }}
-        >
-          <Text
-            style={{
-              fontSize: 20,
-              fontFamily: "Rubik_800ExtraBold",
-              color: "#ffffff",
-            }}
-          >
-            $2,500
-          </Text>
-          <Image source={icons.heart} style={{ width: 20, height: 20 }} />
+        <Text style={styles.featuredAddress}>22 W 15th St, New York</Text>
+        <View style={styles.priceRow}>
+          <Text style={styles.featuredPrice}>$2,500</Text>
+          <Image source={icons.heart} style={styles.heartIconWhite} />
         </View>
       </View>
     </TouchableOpacity>
@@ -118,112 +40,157 @@ export const FeaturedCard = ({ onPress }: Props) => {
 
 export const Card = ({ onPress }: Props) => {
   return (
-    <TouchableOpacity
-      onPress={onPress}
-      style={{
-        flex: 1,
-        width: "100%",
-        marginTop: 16,
-        paddingHorizontal: 12,
-        paddingVertical: 16,
-        borderRadius: 20,
-        // color: "#ffffff",
-        // shadowColor: "#000",
-        // shadowOffset: { width: 0, height: 10 },
-        // shadowOpacity: 0.7,
-        // shadowRadius: 10,
-        // elevation: 10,
-      }}
-    >
-      <View
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          position: "absolute",
-          paddingHorizontal: 8,
-          top: 20,
-          right: 20,
-          backgroundColor: "rgba(255,255,255,0.9)",
-          padding: 4,
-          borderRadius: 9999,
-          zIndex: 50,
-        }}
-      >
-        <Image source={icons.star} style={{ height: 16, width: 16 }} />
-        <Text
-          style={{ fontSize: 12, fontFamily: "Rubik_700Bold", marginLeft: 4 }}
-        >
-          4.4
-        </Text>
+    <TouchableOpacity onPress={onPress} style={styles.cardContainer}>
+      <View style={styles.ratingBadgeCard}>
+        <Image source={icons.star} style={styles.starIconSmall} />
+        <Text style={styles.ratingText}>4.4</Text>
       </View>
 
-      <Image
-        source={images.newYork}
-        style={{ width: "100%", height: 160, borderRadius: 8 }}
-      />
+      <Image source={images.newYork} style={styles.cardImage} />
 
-      <View
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          marginTop: 8,
-          // alignItems: "flex-start",
-          // position: "absolute",
-          // bottom: 20,
-          // left: 20,
-          // right: 20,
-        }}
-      >
-        <Text
-          style={{
-            fontSize: 16,
-            fontFamily: "Rubik_700Bold",
-            color: "#191d31",
-          }}
-        >
-          Cozy Studio
-        </Text>
-        <Text
-          style={{
-            fontSize: 12,
-            fontFamily: "Rubik_500Medium",
-            color: "#666876",
-          }}
-        >
-          22 W 15th St, New York
-        </Text>
-        <View
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            marginTop: 8,
-          }}
-        >
-          <Text
-            style={{
-              fontSize: 16,
-              fontFamily: "Rubik_700Bold",
-              color: "#0061FF",
-            }}
-          >
-            $2,500
-          </Text>
-          <Image
-            source={icons.heart}
-            style={{
-              width: 20,
-              height: 20,
-              marginRight: 8,
-              tintColor: "#191d31",
-            }}
-          />
+      <View style={styles.cardContent}>
+        <Text style={styles.cardTitle}>Cozy Studio</Text>
+        <Text style={styles.cardAddress}>22 W 15th St, New York</Text>
+        <View style={styles.priceRow}>
+          <Text style={styles.cardPrice}>$2,500</Text>
+          <Image source={icons.heart} style={styles.heartIconDark} />
         </View>
       </View>
     </TouchableOpacity>
   );
 };
 
-const styles = StyleSheet.create({});
+const baseText = {
+  fontFamily: "Rubik_700Bold",
+  color: "#191d31",
+};
+
+const styles = StyleSheet.create({
+  featuredCard: {
+    flexDirection: "column",
+    alignItems: "flex-start",
+    width: 240,
+    height: 320,
+    position: "relative",
+  },
+  featuredImage: {
+    width: "100%",
+    height: "100%",
+    borderRadius: 16,
+  },
+  gradientOverlay: {
+    width: "100%",
+    height: "100%",
+    borderRadius: 16,
+    position: "absolute",
+    bottom: 0,
+  },
+  ratingBadge: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "rgba(255,255,255,0.9)",
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 9999,
+    position: "absolute",
+    top: 20,
+    right: 20,
+  },
+  ratingBadgeCard: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "rgba(255,255,255,0.9)",
+    padding: 4,
+    paddingHorizontal: 8,
+    borderRadius: 9999,
+    position: "absolute",
+    top: 20,
+    right: 20,
+    zIndex: 50,
+  },
+  starIcon: {
+    height: 20,
+    width: 20,
+  },
+  starIconSmall: {
+    height: 16,
+    width: 16,
+  },
+  ratingText: {
+    fontSize: 12,
+    fontFamily: "Rubik_700Bold",
+    marginLeft: 4,
+  },
+  featuredContent: {
+    position: "absolute",
+    bottom: 20,
+    left: 20,
+    right: 20,
+  },
+  featuredTitle: {
+    fontSize: 20,
+    fontFamily: "Rubik_800ExtraBold",
+    color: "#ffffff",
+  },
+  featuredAddress: {
+    fontSize: 16,
+    fontFamily: "Rubik_500Medium",
+    color: "#ffffff",
+  },
+  priceRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: "100%",
+    marginTop: 4,
+  },
+  featuredPrice: {
+    fontSize: 20,
+    fontFamily: "Rubik_800ExtraBold",
+    color: "#ffffff",
+  },
+  heartIconWhite: {
+    width: 20,
+    height: 20,
+  },
+  cardContainer: {
+    flex: 1,
+    width: "100%",
+    marginTop: 16,
+    paddingHorizontal: 12,
+    paddingVertical: 16,
+    borderRadius: 20,
+    shadowOffset: { width: 0, height: 10 },
+    // elevation: 10,
+  },
+  cardImage: {
+    width: "100%",
+    height: 160,
+    borderRadius: 8,
+  },
+  cardContent: {
+    flexDirection: "column",
+    marginTop: 8,
+  },
+  cardTitle: {
+    fontSize: 16,
+    fontFamily: "Rubik_700Bold",
+    color: "#191d31",
+  },
+  cardAddress: {
+    fontSize: 12,
+    fontFamily: "Rubik_500Medium",
+    color: "#666876",
+  },
+  cardPrice: {
+    fontSize: 16,
+    fontFamily: "Rubik_700Bold",
+    color: "#0061FF",
+  },
+  heartIconDark: {
+    width: 20,
+    height: 20,
+    marginRight: 8,
+    tintColor: "#191d31",
+  },
+});
