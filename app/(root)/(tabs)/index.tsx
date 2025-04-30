@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   Button,
+  ActivityIndicator,
 } from "react-native";
 import images from "@/constants/images";
 import icons from "@/constants/icons";
@@ -37,6 +38,7 @@ import { getLatestProperties, getProperties } from "@/lib/appwrite";
 import seed from "@/lib/seed";
 import { useEffect } from "react";
 import { Query } from "react-native-appwrite";
+import NoResult from "@/components/NoResult";
 
 export default function Index() {
   let [fontsLoaded] = useFonts({
@@ -56,14 +58,6 @@ export default function Index() {
     // Rubik_900Black_Italic,
   });
 
-  // if (!fontsLoaded) {
-  //   return (
-  //     <View>
-  //       <Text>Loading fonts...</Text>
-  //     </View>
-  //   ); // Or a SplashScreen, etc.
-  // }
-
   const { user } = useGlobalContext();
   const params = useLocalSearchParams<{ query?: string; filter?: string }>();
 
@@ -72,7 +66,7 @@ export default function Index() {
 
   const {
     data: properties,
-    loading: propertiesLoading,
+    loading,
     refetch,
   } = useAppwrite({
     fn: getProperties,
@@ -111,32 +105,19 @@ export default function Index() {
       <FlatList
         data={properties}
         renderItem={({ item }) => (
-          <Card
-            item={item}
-            onPress={() => handleCardPress(item.$id)}
-            // image={{ uri: item?.image || images.newYork }}
-            // title={item?.title}
-            // address={item?.location}
-            // price={`$${item?.price}`}
-            // addressStyle={{ color: "black" }}
-            // titleStyle={{ color: "black" }}
-            // // infoBlockStyle={{ position: "relative",  }}
-            // priceStyle={{ color: "#0061FF" }}
-            // heartIconStyle={{ tintColor: "black" }}
-            // containerStyle={{ marginRight: 10, marginBottom: 10 }}
-            // imageStyle={{
-            //   display: "flex",
-            //   position: "relative",
-            //   bottom: 20,
-            //   marginBottom: 20,
-            // }}
-            // ratingWrapperStyle={{ height: 30, width: 50 }}
-          />
+          <Card item={item} onPress={() => handleCardPress(item.$id)} />
         )}
         keyExtractor={(item) => item?.$id || item.toString()}
         numColumns={2}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.flatlistContentStyle}
+        ListEmptyComponent={
+          loading ? (
+            <ActivityIndicator size={"large"} style={{}} />
+          ) : (
+            <NoResult />
+          )
+        }
         ListHeaderComponent={
           <View style={{ paddingHorizontal: 10 }}>
             <View style={styles.containerStyle}>
@@ -178,25 +159,27 @@ export default function Index() {
                   <Text style={styles.link}>See All</Text>
                 </TouchableOpacity>
               </View>
-              <FlatList
-                data={latestProperties}
-                renderItem={({ item }) => (
-                  <FeaturedCard
-                    item={item}
-                    onPress={() => handleCardPress(item.$id)}
-                    // image={{ uri: item?.image || images.japan }}
-                    // title={item?.title}
-                    // address={item?.location}
-                    // price={`$${item?.price}`}
-                    // containerStyle={{}}
-                  />
-                )}
-                keyExtractor={(item) => item?.$id || item.toString()}
-                horizontal
-                bounces={false}
-                showsHorizontalScrollIndicator={false}
-                contentContainerStyle={styles.featuredCard}
-              />
+
+              {latestPropertiesLoading ? (
+                <ActivityIndicator size={"large"} />
+              ) : !latestProperties || latestProperties.length === 0 ? (
+                <NoResult />
+              ) : (
+                <FlatList
+                  data={latestProperties}
+                  renderItem={({ item }) => (
+                    <FeaturedCard
+                      item={item}
+                      onPress={() => handleCardPress(item.$id)}
+                    />
+                  )}
+                  keyExtractor={(item) => item?.$id || item.toString()}
+                  horizontal
+                  bounces={false}
+                  showsHorizontalScrollIndicator={false}
+                  contentContainerStyle={styles.featuredCard}
+                />
+              )}
             </View>
 
             <View style={styles.sectionHeader}>

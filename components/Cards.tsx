@@ -21,16 +21,16 @@ export const FeaturedCard = ({ item, onPress }: Props) => {
 
       <View style={styles.ratingBadge}>
         <Image source={icons.star} style={styles.starIcon} />
-        <Text style={styles.ratingText}>4.4</Text>
+        <Text style={styles.ratingText}>{item.rating}</Text>
       </View>
 
       <View style={styles.featuredContent}>
         <Text style={styles.featuredTitle} numberOfLines={1}>
-          Modern Apartment
+          {item.name}
         </Text>
-        <Text style={styles.featuredAddress}>22 W 15th St, New York</Text>
+        <Text style={styles.featuredAddress}>{item.address}</Text>
         <View style={styles.priceRow}>
-          <Text style={styles.featuredPrice}>$2,500</Text>
+          <Text style={styles.featuredPrice}>${item.price}</Text>
           <Image source={icons.heart} style={styles.heartIconWhite} />
         </View>
       </View>
@@ -38,21 +38,21 @@ export const FeaturedCard = ({ item, onPress }: Props) => {
   );
 };
 
-export const Card = ({ onPress }: Props) => {
+export const Card = ({ item, onPress }: Props) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.cardContainer}>
       <View style={styles.ratingBadgeCard}>
         <Image source={icons.star} style={styles.starIconSmall} />
-        <Text style={styles.ratingText}>4.4</Text>
+        <Text style={styles.ratingText}>{item.rating}</Text>
       </View>
 
-      <Image source={images.newYork} style={styles.cardImage} />
+      <Image source={{ uri: item.image }} style={styles.cardImage} />
 
       <View style={styles.cardContent}>
-        <Text style={styles.cardTitle}>Cozy Studio</Text>
-        <Text style={styles.cardAddress}>22 W 15th St, New York</Text>
+        <Text style={styles.cardTitle}>{item.name}</Text>
+        <Text style={styles.cardAddress}>{item.address}</Text>
         <View style={styles.priceRow}>
-          <Text style={styles.cardPrice}>$2,500</Text>
+          <Text style={styles.cardPrice}>${item.price}</Text>
           <Image source={icons.heart} style={styles.heartIconDark} />
         </View>
       </View>
