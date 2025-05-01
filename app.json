@@ -15,7 +15,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.huzaifa.realestate"
     },
     "web": {
       "bundler": "metro",
@@ -37,18 +38,26 @@
         "expo-font",
         {
           "fonts": [
-            "./assets/fonts/Rubic-Bold.ttf",
-            "./assets/fonts/Rubic-ExtraBold.ttf",
-            "./assets/fonts/Rubic-Medium.ttf",
-            "./assets/fonts/Rubic-Light.ttf",
-            "./assets/fonts/Rubic-Regular.ttf",
-            "./assets/fonts/Rubic-SemiBold.ttf"
+            "./assets/fonts/Rubik-Bold.ttf",
+            "./assets/fonts/Rubik-ExtraBold.ttf",
+            "./assets/fonts/Rubik-Medium.ttf",
+            "./assets/fonts/Rubik-Light.ttf",
+            "./assets/fonts/Rubik-Regular.ttf",
+            "./assets/fonts/Rubik-SemiBold.ttf"
           ]
         }
       ]
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "c9912a47-29fb-4c77-a111-bbd7da3eda6e"
+      }
     }
   }
 }
